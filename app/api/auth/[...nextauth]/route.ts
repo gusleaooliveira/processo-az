@@ -17,6 +17,8 @@ export const authOptions = {
             password: credentials?.password,
           });
 
+          console.log(res);
+
           return {
             id: res.data.id,
             email: res.data.email,
