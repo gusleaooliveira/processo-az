@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import routes from './routes';
-
+import { swaggerUi, swaggerSpec } from './swagger';  
 import './database'
 
 class App {
@@ -20,7 +20,16 @@ class App {
 
   routes() {
     this.server.use(cors());
+
+    // Rota para a documentação Swagger
+    this.server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+     // Rota para obter o JSON da especificação
+     this.server.get('/docs-json', (req, res) => res.json(swaggerSpec));
+     
     this.server.use(routes);
+
+    
   }
 }
 
